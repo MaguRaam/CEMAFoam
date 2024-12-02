@@ -1,5 +1,5 @@
 # CEMAFoam
-![OpenFOAM 2006](https://img.shields.io/badge/OpenFOAM-2006-brightgreen) ![license](https://img.shields.io/badge/license-GPL3-brightgreen)
+![OpenFOAM-dev](https://img.shields.io/badge/OpenFOAM-dev-brightgreen) ![license](https://img.shields.io/badge/license-GPL3-brightgreen)
 
 [CEMAFoam](https://github.com/Aalto-CFD/CEMAFoam) is a C++ library that implements Chemical Explosive Mode Analysis (CEMA) in OpenFOAM. The developments of this library are a result of the project coursework [CFD with OpenSource Software 2021](http://dx.doi.org/10.17196/OS_CFD#YEAR_2021).
 
@@ -27,54 +27,12 @@ since it identifies the existence of chemical explosive mode.
 
 
 ## Dependencies
-**CEMAFoam** is currently compatible with [`OpenFOAM v2006`](https://www.openfoam.com/news/main-news/openfoam-v20-06) from ESI. Moreover, it requires [`pyJac`](https://github.com/SLACKHA/pyJac) for analytical Jacobian evaluation.
 
 ## Validation
 
-Validation of the developed model is presented below for a laminar one-dimensional unstrained planar premixed flame comprising methane and air at equivalence ratio of 0.5 and thermodynamic conditions of T = 900 K and p = 1 atm. The adopted chemical kinetic mechanism is developed by Yao et al. [[4]](#4) comprising 54 species and 269 reactions.
-
-The following figure depicts the flame structure through temperature and heat release fields. The variable `cem` defines the leading non-conservative eigenvalue of the thermo-chemical analytic Jacobian matrix. The positive values of `cem` indicate pre-ignition zones and the negative values indicate post-ignition zones, whereas zero-crossing interface can be regarded as the reaction front. Field plots are presented for the numerical based Jacobian (left panel) and analytical based Jacobian (right panel). 
-Discrepancies are shown in the preheat zone of `cem` using numerical Jacobian are possibly due to insufficient significant digits of the Jacobian matrix resulting by finite-differencing. Such notes are further supported by discussions of the original CEMA developments by Lu et al. [[1]](#1).
-
-![cema_valid](https://imgur.com/XgqdvPr.png)
-
-*<div align="center">Validation of CEMA implementation for 1D methane/air laminar premixed flame. CEMA results using numerical Jacobian (left panel) show discrepancies in preheat zone indicating importance of using analytical formulation of thermo-chemical Jacobian (as indicated in right panel).</div>*
-
-The following figure depicts local combustion modes using projections of diffusion and reaction terms onto chemical explosive mode, as proposed by Xu et al. [[2]](#2). Projected CEMA results from developed library in OpenFOAM are compared against reference implementation from PREMIX code. Implementations for the projected CEMA is not currently available in the repository but they will be uploaded soon.
-
-![cema_valid2](https://imgur.com/yZfNicq.png)
-
-*<div align="center">Validation of projected CEMA for combustion mode characterization. Results using OpenFOAM are compared against reference implementation using PREMIX code for the same initial conditions.</div>*
-
 
 ## How to use
-Make sure that `OpenFOAM v2006` is installed and properly sourced, then navigate to our library directory and follow the instructions below.
 
-* Compile the library by executing the following commands from terminal interface
-```
-cd src/thermophysicalModels/chemistryModel
-wmake
-```
-
-* Choose the new chemistry model from the corresponding subdictionary in
-  `constant/chemistryProperties` as in the following.
-```
-chemistryType
-{
-    solver            odePyjac;
-    method            cemaPyjac;
-}
-```
-
-* Link the library during solver runTime. This is achieved by adding the
-  following to `system/controlDict` of the simulation case directory.
-
-```
-libs
-(
-    "libcemaPyjacChemistryModel.so"
-);
-```
 
 ## Authors
 The open-source library is a property of [Aalto-CFD](https://github.com/Aalto-CFD) and it is developed and currently maintained by
