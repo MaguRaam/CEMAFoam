@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Dependency files
+*.dep
+
+# Vscode 
+.vscode/
