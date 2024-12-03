@@ -1,0 +1,3 @@
+EXE_INC = \
+    -I ../../src/EigenMatrix
+LIB_LIBS = \
