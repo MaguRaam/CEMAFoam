@@ -1075,9 +1075,9 @@ Foam::EigenMatrix<cmptType>::complexEVecs() const
 
     std::transform
     (
-        EVecs_.cbegin(),
-        EVecs_.cend(),
-        EVecs.begin(),
+        EVecs_.v(),
+        EVecs_.v() + EVecs.size(),
+        EVecs.v(),
         [&](const cmptType& x){ return complex(x); }
     );
 
