@@ -31,6 +31,12 @@
 *.out
 *.app
 
+# lnInclude
+lnInclude
+
+# Build directories
+linux*Gcc*/
+
 # Dependency files
 *.dep
 
