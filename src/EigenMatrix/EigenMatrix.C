@@ -999,6 +999,9 @@ void Foam::EigenMatrix<cmptType>::realSchur()
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+//TODO Fix this constructor - commented because there is no symmetric() member function for A
+
+/*
 template<class cmptType>
 Foam::EigenMatrix<cmptType>::EigenMatrix(const SquareMatrix<cmptType>& A)
 :
@@ -1027,7 +1030,7 @@ Foam::EigenMatrix<cmptType>::EigenMatrix(const SquareMatrix<cmptType>& A)
         Hessenberg();
         realSchur();
     }
-}
+} */
 
 
 template<class cmptType>

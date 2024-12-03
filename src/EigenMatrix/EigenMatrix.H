@@ -215,7 +215,7 @@ public:
     // Constructors
 
         //- Construct from a SquareMatrix<cmptType>
-        explicit EigenMatrix(const SquareMatrix<cmptType>& A);
+        //explicit EigenMatrix(const SquareMatrix<cmptType>& A); //TODO Fix this constructor - commented because there is no symmetric() member function for A
 
         //- Construct from a SquareMatrix<cmptType> and symmetry flag
         //  Does not perform symmetric check
