@@ -25,6 +25,10 @@ for the identification of pre- and post-ignition zones and subsequently the reac
 OpenFOAM. Such an implementation is considered the crucial part in the analysis tool development
 since it identifies the existence of chemical explosive mode.
 
+## TODO
+Write a function object to extract eigenvalues of chemistry Jacobian
+Test it on chemFoam h2 auto ignition
+
 
 ## Dependencies
 
