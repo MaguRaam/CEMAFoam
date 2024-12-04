@@ -7,8 +7,8 @@ then
 fi
 
 gnuplot<<EOF
-    set terminal postscript eps color enhanced "Helvetica,20"
-    set output "OF_vs_CHEMKINII.eps"
+    set terminal pngcairo size 1280,960 enhanced font "Helvetica,20"
+    set output "OF_vs_CHEMKINII.png"
     set xlabel "Time / [s]" font "Helvetica,24"
     set ylabel "Temperature / [K]" font "Helvetica,24"
     set grid
