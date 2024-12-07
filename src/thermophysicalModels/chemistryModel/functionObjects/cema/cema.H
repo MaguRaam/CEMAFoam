@@ -33,20 +33,13 @@ Description
     {
         type           cema;
         libs ("libcemaFunctionObject.so");
-        ...
-        wordData       someWord;
-        scalarData     1.0;
-        labelData      1;
     }
     \endverbatim
 
 Usage
     \table
         Property     | Description               | Required | Default value
-        type         | type name: cema | yes      |
-        wordData     | some word option...       | no       | defaultWord
-        scalarData   | some scalar value...      | yes      |
-        labelData    | some label value...       | yes      |
+        type         | type name: cema | yes     |
     \endtable
 
 SourceFiles
@@ -75,16 +68,6 @@ class cema
     public fvMeshFunctionObject
 {
     // Private Data
-
-        //- word
-        word wordData_;
-
-        //- scalar
-        scalar scalarData_;
-
-        //- label
-        label labelData_;
-
 
     // Private Member Functions
 

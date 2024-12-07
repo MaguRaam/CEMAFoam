@@ -50,10 +50,7 @@ Foam::functionObjects::cema::cema
     const dictionary& dict
 )
 :
-    fvMeshFunctionObject(name, runTime, dict),
-    wordData_(dict.lookupOrDefault<word>("wordData", "defaultWord")),
-    scalarData_(dict.lookup<scalar>("scalarData")),
-    labelData_(dict.lookup<label>("labelData"))
+    fvMeshFunctionObject(name, runTime, dict)
 {
     read(dict);
 }
@@ -69,10 +66,6 @@ Foam::functionObjects::cema::~cema()
 
 bool Foam::functionObjects::cema::read(const dictionary& dict)
 {
-    dict.readIfPresent("wordData", wordData_);
-    dict.lookup("scalarData") >> scalarData_;
-    dict.lookup("labelData") >> labelData_;
-
     return true;
 }
 
