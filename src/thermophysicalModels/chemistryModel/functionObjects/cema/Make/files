@@ -1,3 +1,0 @@
-cema.C
-
-LIB = $(FOAM_USER_LIBBIN)/libcemaFunctionObject

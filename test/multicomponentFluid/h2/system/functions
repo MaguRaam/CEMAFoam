@@ -18,13 +18,5 @@ FoamFile
 #includeFunc probes(name=probe, points=((0 0 0)), T, p)
 #includeFunc Qdot
 
-cema1
-{
-    type           cema;
-    libs           ("libcemaFunctionObject.so");
-    wordData       someWord;
-    scalarData     1.0;
-    labelData      1;
-}
 
 // ************************************************************************* //
