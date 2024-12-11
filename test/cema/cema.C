@@ -28,6 +28,7 @@ Description
 #include "argList.H"
 #include "IOmanip.H"
 #include "ODESystem.H"
+#include "EigenMatrix.H"
 
 using namespace Foam;
 
@@ -104,9 +105,36 @@ public:
 
 int main(int argc, char *argv[])
 {
-   
     // Create the ODE system
     testODE ode;
+
+    // Initialize nEq of the system
+    const label nEq = ode.nEqns();
+
+    // Initialize dummy state vector y at some x
+    scalar x(1.0);
+    scalarField y(nEq, 1.0);
+
+    // Compute the derivates dydx = f(x, y)
+    scalarField dydx(nEq);
+    ode.derivatives(x, y, 0, dydx);
+ 
+    // Compute the jacobian matrix
+    scalarField dfdx(nEq);
+    scalarSquareMatrix dfdy(nEq);
+    ode.jacobian(x, y, 0, dfdx, dfdy);
+
+    // Info << "dydx = " << dydx << endl;
+    // Info << "dfdy = " << dfdy << endl;
+
+    // Compute Eigen values and Eigen vectors
+    EigenMatrix<doubleScalar> EM(dfdy, false);
+    // Info << "Eigenvalues (Real): " << EM.EValsRe() << endl;
+    // Info << "Eigenvalues (Imaginary): " << EM.EValsIm() << endl;
+    Info << "Right Eigen vectors: \n" << EM.complexEVecs() << endl;
+
+
+
 
     return 0;
 }
