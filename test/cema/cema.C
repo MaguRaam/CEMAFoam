@@ -28,21 +28,21 @@ Description
 #include "argList.H"
 #include "IOmanip.H"
 #include "ODESystem.H"
+
+
 #include "EigenMatrix.H"
 
 using namespace Foam;
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-class testODE
+// Simple test ODE system
+class chemistryModel
 :
     public ODESystem
 {
 
 public:
-
-    testODE()
-    {}
 
     label nEqns() const
     {
@@ -63,7 +63,7 @@ public:
         dydx[3] = y[2] - (3.0/x)*y[3];
     }
 
-    void jacobian
+    virtual void jacobian
     (
         const scalar x,
         const scalarField& y,
@@ -99,6 +99,52 @@ public:
     }
 };
 
+class cema
+: public chemistryModel
+{
+protected:
+    scalar cem(const scalarSquareMatrix& J) const
+    {   
+        // Compute Eigen values
+        EigenMatrix<doubleScalar> EM(J, false);
+        DiagonalMatrix<scalar> EValsRe(EM.EValsRe());
+        DiagonalMatrix<scalar> EValsIm(EM.EValsIm());
+
+        // Compute magnitude of eigen values
+        scalarList EValsMag(EValsRe*EValsRe + EValsIm*EValsIm);
+
+        // Get the indices of magnitude of eigenvalues in increasing order
+        labelList order;
+        sortedOrder(EValsMag, order);
+
+        // Skip conservation modes for elements and temperature
+        label nElements = 2;
+        for (label i=0; i<nElements+1; ++i) 
+        {
+            EValsRe[order[i]] = -1E30;
+        }
+
+        // return cem
+        return max(EValsRe);
+    }
+
+public:
+    
+    virtual void jacobian
+    (
+        const scalar x,
+        const scalarField& y,
+        const label li,
+        scalarField& dfdx,
+        scalarSquareMatrix& J
+    ) const
+    {
+        chemistryModel::jacobian(x, y, li, dfdx, J);
+        cem(J);
+    }
+};
+
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 // Main program:
@@ -106,7 +152,7 @@ public:
 int main(int argc, char *argv[])
 {
     // Create the ODE system
-    testODE ode;
+    cema ode;
 
     // Initialize nEq of the system
     const label nEq = ode.nEqns();
@@ -115,27 +161,11 @@ int main(int argc, char *argv[])
     scalar x(1.0);
     scalarField y(nEq, 1.0);
 
-    // Compute the derivates dydx = f(x, y)
-    scalarField dydx(nEq);
-    ode.derivatives(x, y, 0, dydx);
- 
     // Compute the jacobian matrix
     scalarField dfdx(nEq);
     scalarSquareMatrix dfdy(nEq);
     ode.jacobian(x, y, 0, dfdx, dfdy);
-
-    // Info << "dydx = " << dydx << endl;
-    // Info << "dfdy = " << dfdy << endl;
-
-    // Compute Eigen values and Eigen vectors
-    EigenMatrix<doubleScalar> EM(dfdy, false);
-    // Info << "Eigenvalues (Real): " << EM.EValsRe() << endl;
-    // Info << "Eigenvalues (Imaginary): " << EM.EValsIm() << endl;
-    Info << "Right Eigen vectors: \n" << EM.complexEVecs() << endl;
-
-
-
-
+    
     return 0;
 }
 
