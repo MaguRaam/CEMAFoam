@@ -1081,7 +1081,7 @@ Foam::EigenMatrix<cmptType>::complexEVecs() const
         EVecs_.v(),
         EVecs_.v() + EVecs.size(),
         EVecs.v(),
-        [&](const cmptType& x){ return complex(x); }
+        [&](const cmptType& x){ return complex(x, 0); }
     );
 
     for (label i = 0; i < EValsIm_.size(); ++i)
