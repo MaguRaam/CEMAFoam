@@ -1,0 +1,4 @@
+EXE_INC = \
+    -I../../src/ODE/lnInclude
+
+EXE_LIBS = -lODE
