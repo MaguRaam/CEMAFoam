@@ -1,0 +1,2 @@
+chemistrySolver/ode/odeChemistrySolvers.C
+LIB = $(FOAM_USER_LIBBIN)/libcemaChemistryModel
