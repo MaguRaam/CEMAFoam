@@ -51,4 +51,9 @@ DebugSwitches
     SolverPerformance   0;
 }
 
+libs
+(
+    "libcemaChemistryModel.so"
+);
+
 // ************************************************************************* //
