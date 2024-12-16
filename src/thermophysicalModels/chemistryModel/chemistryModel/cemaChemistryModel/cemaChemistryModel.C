@@ -33,7 +33,8 @@ Foam::cemaChemistryModel<ThermoType>::cemaChemistryModel
     const fluidMulticomponentThermo& thermo
 )
 :
-    chemistryModel<ThermoType>(thermo)
+    chemistryModel<ThermoType>(thermo),
+    nElements_(this->template lookup<label>("nElements"))
 {}
 
 
@@ -65,10 +66,9 @@ Foam::scalar Foam::cemaChemistryModel<ThermoType>::cema
     sortedOrder(EValsMag, order);
 
     // Skip conservation modes for elements and temperature
-    const label nElements = 2; //TODO
     const scalar smallestEVal = -vGreat;
     
-    for (label i = 0; i < nElements + 1; ++i)
+    for (label i = 0; i < nElements_ + 1; ++i)
     {
         EValsRe[order[i]] = smallestEVal;
     }
@@ -89,7 +89,8 @@ void Foam::cemaChemistryModel<ThermoType>::jacobian
 ) const
 {
     chemistryModel<ThermoType>::jacobian(t, YTp, li, dYTpdt, J);
-    Info << "CEMA" << cema(J) << endl;
+    Info << "CEMA = " << cema(J) << endl;
+    Info << nElements_ << endl;
 }
 
 // * * * * * * * * * * * * * * Friend Functions  * * * * * * * * * * * * * * //

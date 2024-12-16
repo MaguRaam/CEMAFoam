@@ -54,6 +54,10 @@ class cemaChemistryModel
 {
     // Private Data
 
+        //- The number of elements
+        label nElements_;
+
+
     // Private Member Functions
 
 

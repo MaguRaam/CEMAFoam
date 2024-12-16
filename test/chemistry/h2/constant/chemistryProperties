@@ -29,6 +29,8 @@ EulerImplicitCoeffs
     cTauChem        1;
 }
 
+nElements 4; // TODO Extract from species info in the future
+
 odeCoeffs
 {
     solver          seulex;
