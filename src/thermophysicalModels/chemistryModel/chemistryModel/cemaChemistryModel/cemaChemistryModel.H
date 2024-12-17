@@ -57,6 +57,9 @@ class cemaChemistryModel
         //- The number of elements
         label nElements_;
 
+        //- Chemical explosive mode
+        mutable volScalarField cem_;
+
 
     // Private Member Functions
 

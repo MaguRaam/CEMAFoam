@@ -34,8 +34,23 @@ Foam::cemaChemistryModel<ThermoType>::cemaChemistryModel
 )
 :
     chemistryModel<ThermoType>(thermo),
-    nElements_(this->template lookup<label>("nElements"))
-{}
+    nElements_(this->template lookup<label>("nElements")),
+    cem_
+    (
+        IOobject
+        (
+            "cem",
+            this->mesh().time().name(),
+            this->mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh(),
+        dimensionedScalar(dimless, 0)
+    )
+{
+    Info<< "cemaChemistryModel: Number of elements = " << nElements_ << endl;
+}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
@@ -53,7 +68,7 @@ Foam::scalar Foam::cemaChemistryModel<ThermoType>::cema
     const scalarSquareMatrix& J
 ) const
 {
-    // Compute Eigen values
+    // Compute eigen values
     const EigenMatrix<scalar> EM(J, false);
     DiagonalMatrix<scalar> EValsRe(EM.EValsRe());
     const DiagonalMatrix<scalar> EValsIm(EM.EValsIm());
@@ -73,7 +88,7 @@ Foam::scalar Foam::cemaChemistryModel<ThermoType>::cema
         EValsRe[order[i]] = smallestEVal;
     }
 
-    // return cem
+    // Return cem (Combustion explosive mode)
     return max(EValsRe);
 }
 
@@ -83,14 +98,15 @@ void Foam::cemaChemistryModel<ThermoType>::jacobian
 (
     const scalar t,
     const scalarField& YTp,
-    const label li,
+    const label celli,
     scalarField& dYTpdt,
     scalarSquareMatrix& J
 ) const
 {
-    chemistryModel<ThermoType>::jacobian(t, YTp, li, dYTpdt, J);
-    Info << "CEMA = " << cema(J) << endl;
-    Info << nElements_ << endl;
+    chemistryModel<ThermoType>::jacobian(t, YTp, celli, dYTpdt, J);
+
+    // Update cem field
+    cem_[celli] = cema(J);
 }
 
 // * * * * * * * * * * * * * * Friend Functions  * * * * * * * * * * * * * * //
