@@ -7,18 +7,32 @@ then
 fi
 
 gnuplot<<EOF
-    set terminal pngcairo size 1280,960 enhanced font "Helvetica,20"
-    set output "OF_vs_CHEMKINII.png"
-    set xlabel "Time / [s]" font "Helvetica,24"
-    set ylabel "Temperature / [K]" font "Helvetica,24"
-    set grid
-    set key left top
+    set terminal pngcairo size 1920,1440 enhanced font "Helvetica,24" linewidth 2
+    set output "OF_vs_CHEMKINII_dual_y.png"
+    
+    set xlabel "Time / [s]" font "Helvetica,28"
+    set ylabel "Temperature / [K]" font "Helvetica,28"
+    set y2label "cem" font "Helvetica,28"
+    set grid linestyle 0, linewidth 1.5, lc rgb "gray"
+    set key top left font "Helvetica,24"
+
+    # Set range for x and y axes for better visual scaling
     set xrange [0:0.001]
     set yrange [750:2750]
-    set ytic 250
-    plot \
-        "../chemFoam.out" u 1:2 t "OpenFOAM" with points lt 1 pt 6 ps 1.5,\
-        "chemkinII" with lines title "Chemkin II" lt -1
-EOF
+    set y2range [-20000:500000]
 
-#------------------------------------------------------------------------------
+    # Set tick marks for more readable grid
+    set ytic 250 font "Helvetica,20"
+    set y2tic font "Helvetica,20"
+    
+    # Set axis style for improved readability
+    set style line 1 lc rgb "blue" lt 1 lw 3 pt 6 ps 1.5
+    set style line 2 lc rgb "red" lt 1 lw 3 pt 7 ps 1.5
+    set style line 3 lc rgb "green" lt 1 lw 3
+
+    # Plot with differentiated colors and better visual representation
+    plot \
+        "../chemFoam.out" using 1:2 title "OpenFOAM" with points linestyle 1, \
+        "chemkinII" using 1:2 title "Chemkin II" with lines linestyle 2, \
+        "../postProcessing/probe/0/cem" using 1:2 title "cem" with lines linestyle 3 axes x1y2
+EOF
