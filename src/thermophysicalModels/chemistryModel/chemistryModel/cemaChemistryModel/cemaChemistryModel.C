@@ -109,10 +109,5 @@ void Foam::cemaChemistryModel<ThermoType>::jacobian
     cem_[celli] = cema(J);
 }
 
-// * * * * * * * * * * * * * * Friend Functions  * * * * * * * * * * * * * * //
-
-
-// * * * * * * * * * * * * * * Friend Operators * * * * * * * * * * * * * * //
-
 
 // ************************************************************************* //
