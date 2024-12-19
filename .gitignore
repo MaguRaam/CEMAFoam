@@ -42,5 +42,6 @@ linux*Gcc*/
 # Vscode 
 .vscode/
 
-# EPS
+# Image files
 *.eps
+*.pdf
