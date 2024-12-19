@@ -26,8 +26,9 @@ OpenFOAM. Such an implementation is considered the crucial part in the analysis 
 since it identifies the existence of chemical explosive mode.
 
 ## TODO
-Write a function object to extract eigenvalues of chemistry Jacobian
-Test it on chemFoam h2 auto ignition
+Test for different fuels (H2, CH4, NC8). 
+Check for different initial temp (500, 800, 1100)
+Check for equivalence ratio (0.51, 1, 1.3)
 
 
 ## Dependencies
