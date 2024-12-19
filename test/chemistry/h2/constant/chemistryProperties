@@ -20,6 +20,8 @@ chemistryType
     method            cemaChemistryModel;
 }
 
+jacobian exact;
+
 chemistry       on;
 
 initialChemicalTimeStep 1e-7;
