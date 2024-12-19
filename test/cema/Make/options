@@ -1,5 +1,0 @@
-EXE_INC = \
-    -I$(LIB_SRC)/ODE/lnInclude \
-    -I../../src/OpenFOAM/matrices/EigenMatrix
-
-EXE_LIBS = -lODE
