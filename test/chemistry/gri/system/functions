@@ -9,37 +9,12 @@ FoamFile
 {
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      chemistryProperties;
+    location    "system";
+    object      functions;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistryType
-{
-    solver            ode;
-    method            cemaChemistryModel;
-}
+#includeFunc probes(name=probe, points=((0 0 0)), T, p, cem)
 
-jacobian exact;
-
-chemistry       on;
-
-initialChemicalTimeStep 1e-7;
-
-EulerImplicitCoeffs
-{
-    cTauChem        10;
-}
-
-nElements 4; // TODO Extract from species info in the future
-
-odeCoeffs
-{
-    solver          seulex;
-    absTol          1e-12;
-    relTol          1e-1;
-}
-
-#include "reactions"
 
 // ************************************************************************* //
