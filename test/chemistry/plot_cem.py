@@ -17,27 +17,34 @@ plt.rcParams.update({
 })
 
 # File paths
-cem_file = 'postProcessing/probe/0/cem'
-temp_file = 'postProcessing/probe/0/T'
+cem_file = 'h2/postProcessing/probe/0/cem'
+temp_file = 'h2/postProcessing/probe/0/T'
 
 # Load data using numpy (efficient and clean)
 time_cem, cem = np.loadtxt(cem_file, comments='#', unpack=True)
 time_temp, temp = np.loadtxt(temp_file, comments='#', unpack=True)
 
+# TODO Skip the first row (omit index 0)
+time_cem, cem = time_cem[1:], cem[1:]
+time_temp, temp = time_temp[1:], temp[1:]
+
 # Create a figure with adjusted aspect ratio
 fig, ax1 = plt.subplots(figsize=(7, 5))  # Better for publication column size
 
-# Plot CEM data on the left axis
+# Plot maximum eigen value data on the left axis
 color_cem = 'tab:blue'
-ax1.set_xlabel(r'\textbf{Time [s]}')
-ax1.set_ylabel(r'\textbf{CEM}', color=color_cem)
-ax1.plot(time_cem, cem, color=color_cem, linestyle='-', label='CEM')
+ax1.set_xlabel(r'$t \, [\mathrm{s}]$')
+ax1.set_ylabel(r'$\lambda^+$', color=color_cem)
+ax1.plot(time_cem, cem, color=color_cem, linestyle='-', label=r'$\lambda^+$')
 ax1.tick_params(axis='y', labelcolor=color_cem)
+
+# TODO Set y-limits for the left y-axis
+# ax1.set_ylim(-.1, .1)  # Adjust as needed for $\lambda^+$ values
 
 # Add a second Y-axis for Temperature
 ax2 = ax1.twinx()
 color_temp = 'tab:red'
-ax2.set_ylabel(r'\textbf{Temperature} $T \, [\mathrm{K}]$', color=color_temp)
+ax2.set_ylabel(r' $T \, [\mathrm{K}]$', color=color_temp)
 ax2.plot(time_temp, temp, color=color_temp, linestyle='-', label='Temperature')
 ax2.tick_params(axis='y', labelcolor=color_temp)
 
