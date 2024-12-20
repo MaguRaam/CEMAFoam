@@ -20,11 +20,13 @@ chemistryType
     method            cemaChemistryModel;
 }
 
-jacobian exact;
+jacobian fast;
 
 chemistry       on;
 
 initialChemicalTimeStep 1e-7;
+
+nElements  5;
 
 EulerImplicitCoeffs
 {
