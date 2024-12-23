@@ -88,7 +88,7 @@ public:
         //- Calculate maximum Jacobian eigenvalue
         virtual scalar cema(const scalarSquareMatrix& J) const;
 
-        // Overrides to ODESystem
+        // Overrides to chemistryModel
 
             //- Calculate the ODE jacobian
             virtual void jacobian
