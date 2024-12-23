@@ -67,7 +67,7 @@ class cemaChemistryModel
 public:
 
     //- Runtime type information
-    TypeName("cemaChemistryModel");
+    TypeName("cema");
 
 
     // Constructors
