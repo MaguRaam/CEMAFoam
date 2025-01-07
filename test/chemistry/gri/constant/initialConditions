@@ -20,9 +20,9 @@ fractionBasis   mole;
 
 fractions
 {
-    CH4             0.5;
-    N2              3.76;
-    O2              1;
+    CH4             0.095023;
+    N2              0.71493;
+    O2              0.19005;
 }
 
 p               1.36789e+06;
