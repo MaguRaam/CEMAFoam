@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#includeFunc probes(name=probe, points=((0 0 0)), T, p, cem)
+#includeFunc probes(name=probe, points=((0 0 0)), T, p, lambdaExp)
 
 
 // ************************************************************************* //

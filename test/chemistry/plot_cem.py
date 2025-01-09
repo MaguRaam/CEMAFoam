@@ -17,8 +17,8 @@ plt.rcParams.update({
 })
 
 # File paths
-cem_file = 'gri/postProcessing/probe/0/cem'
-temp_file = 'gri/postProcessing/probe/0/T'
+cem_file = 'h2/postProcessing/probe/0/lambdaExp'
+temp_file = 'h2/postProcessing/probe/0/T'
 
 # Load data using numpy (efficient and clean)
 time_cem, cem = np.loadtxt(cem_file, comments='#', unpack=True)
@@ -34,8 +34,8 @@ fig, ax1 = plt.subplots(figsize=(7, 5))  # Better for publication column size
 # Plot maximum eigen value data on the left axis
 color_cem = 'tab:blue'
 ax1.set_xlabel(r'$t \, [\mathrm{s}]$')
-ax1.set_ylabel(r'$\lambda_{max}$', color=color_cem)
-ax1.plot(time_cem, cem, color=color_cem, linestyle='-', label=r'$\lambda_{max}$')
+ax1.set_ylabel(r'$\lambda_{exp}$', color=color_cem)
+ax1.plot(time_cem, cem, color=color_cem, linestyle='-', label=r'$\lambda_{exp}$')
 ax1.tick_params(axis='y', labelcolor=color_cem)
 
 # TODO Set y-limits for the left y-axis

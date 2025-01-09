@@ -57,8 +57,8 @@ class cemaChemistryModel
         //- The number of elements
         label nElements_;
 
-        //- Chemical explosive mode
-        mutable volScalarField cem_;
+        //- Eigenvalue of the Jacobian
+        mutable volScalarField lambdaExp_;
 
 
     // Private Member Functions
@@ -85,8 +85,13 @@ public:
 
     // Member Functions
 
-        //- Calculate maximum Jacobian eigenvalue
-        virtual scalar cema(const scalarSquareMatrix& J) const;
+        //- Calculate cema fields
+        virtual void cema
+        (
+            const label celli,
+            const scalarField& YTp,
+            const scalarSquareMatrix& J
+        ) const;
 
         // Overrides to chemistryModel
 

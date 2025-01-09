@@ -35,11 +35,11 @@ Foam::cemaChemistryModel<ThermoType>::cemaChemistryModel
 :
     chemistryModel<ThermoType>(thermo),
     nElements_(this->template lookup<label>("nElements")),
-    cem_
+    lambdaExp_
     (
         IOobject
         (
-            "cem",
+            "lambdaExp",
             this->mesh().time().name(),
             this->mesh(),
             IOobject::NO_READ,
@@ -63,8 +63,10 @@ Foam::cemaChemistryModel<ThermoType>::~cemaChemistryModel()
 // * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * * //
 
 template<class ThermoType>
-Foam::scalar Foam::cemaChemistryModel<ThermoType>::cema
+void Foam::cemaChemistryModel<ThermoType>::cema
 (
+    const label celli,
+    const scalarField& YTp,
     const scalarSquareMatrix& J
 ) const
 {
@@ -88,8 +90,7 @@ Foam::scalar Foam::cemaChemistryModel<ThermoType>::cema
         EValsRe[order[i]] = smallestEVal;
     }
 
-    // Return cem (Combustion explosive mode)
-    return max(EValsRe);
+    lambdaExp_[celli] = max(EValsRe);
 }
 
 
@@ -105,8 +106,8 @@ void Foam::cemaChemistryModel<ThermoType>::jacobian
 {
     chemistryModel<ThermoType>::jacobian(t, YTp, celli, dYTpdt, J);
 
-    // Update cem field
-    cem_[celli] = cema(J);
+    // Calculate cema fields
+    cema(celli, YTp, J);
 }
 
 
