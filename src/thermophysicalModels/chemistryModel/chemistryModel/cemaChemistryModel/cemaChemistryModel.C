@@ -71,9 +71,12 @@ void Foam::cemaChemistryModel<ThermoType>::cema
 ) const
 {
     // Compute eigen values
-    const EigenMatrix<scalar> EM(J, false);
+    EigenMatrix<scalar> EM(J, false);
     DiagonalMatrix<scalar> EValsRe(EM.EValsRe());
-    const DiagonalMatrix<scalar> EValsIm(EM.EValsIm());
+    const DiagonalMatrix<scalar>& EValsIm(EM.EValsIm());
+
+    // Get the size of the matrix
+    const label m = EValsRe.size();
 
     // Compute magnitude square of eigen values
     const scalarList EValsMag(EValsRe*EValsRe + EValsIm*EValsIm);
@@ -90,7 +93,14 @@ void Foam::cemaChemistryModel<ThermoType>::cema
         EValsRe[order[i]] = smallestEVal;
     }
 
-    lambdaExp_[celli] = max(EValsRe);
+    // Find the index of maximum real part of eigenvalue
+    label iMax = findMax(EValsRe);
+
+    // Get the eigenvector corresponding to the maximum real part of eigenvalue
+    Field<scalar> cem = EM.EVecs().col(m, 0, iMax);
+
+    // Compute the maximum real part of eigenvalue
+    lambdaExp_[celli] = EValsRe[iMax];
 }
 
 
