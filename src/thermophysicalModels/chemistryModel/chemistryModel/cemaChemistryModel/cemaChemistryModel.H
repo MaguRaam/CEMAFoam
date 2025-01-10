@@ -106,20 +106,6 @@ public:
             ) const;
 
 
-        // ODE solution functions
-
-            //- Solve the ODE system
-            virtual void solve
-            (
-                scalar& p,
-                scalar& T,
-                scalarField& Y,
-                const label li,
-                scalar& deltaT,
-                scalar& subDeltaT
-            ) const = 0;
-
-
     // Member Operators
 
         //- Disallow default bitwise assignment
