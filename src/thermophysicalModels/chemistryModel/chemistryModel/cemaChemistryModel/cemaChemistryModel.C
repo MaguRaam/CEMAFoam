@@ -87,7 +87,7 @@ void Foam::cemaChemistryModel<ThermoType>::cema
 
     // Skip conservation modes for elements and temperature
     const scalar smallestEVal = -vGreat;
-    
+
     for (label i = 0; i < nElements_ + 1; ++i)
     {
         EValsRe[order[i]] = smallestEVal;
