@@ -95,6 +95,10 @@ public:
 
         // Overrides to chemistryModel
 
+            //- Solve the reaction system for the given time step
+            //  and return the characteristic time
+            virtual scalar solve(const scalar deltaT);
+
             //- Calculate the ODE jacobian
             virtual void jacobian
             (

@@ -105,6 +105,16 @@ void Foam::cemaChemistryModel<ThermoType>::cema
 
 
 template<class ThermoType>
+Foam::scalar Foam::cemaChemistryModel<ThermoType>::solve
+(
+    const scalar deltaT
+)
+{
+    return chemistryModel<ThermoType>::solve(deltaT);
+}
+
+
+template<class ThermoType>
 void Foam::cemaChemistryModel<ThermoType>::jacobian
 (
     const scalar t,
