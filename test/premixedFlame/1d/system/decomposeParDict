@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  12;
+numberOfSubdomains  4;
 
 decomposer      hierarchical;
 
@@ -26,7 +26,7 @@ libs            ("libzoltanDecomp.so");
 
 hierarchicalCoeffs
 {
-    n           (6 2 1);
+    n           (4 1 1);
     order       xyz;
 }
 
