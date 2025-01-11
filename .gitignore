@@ -45,3 +45,18 @@ linux*Gcc*/
 # Image files
 *.eps
 *.pdf
+
+# Processor directories
+processor*
+
+# Mesh directory
+polyMesh/
+
+# Log files
+log.*
+
+# Foam file
+*.foam
+
+# Post processing directory
+postProcessing/
