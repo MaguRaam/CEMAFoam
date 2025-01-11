@@ -11,14 +11,14 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      N2;
+    object      CO2;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 0 0 0 0 0 0];
 
 internalField   nonuniform
-#include"N2.dat"
+#include"CO2.dat"
 ;
 
 boundaryField
@@ -26,7 +26,7 @@ boundaryField
     inlet
     {
         type            fixedValue;
-        value           uniform 0.7453246;
+        value           uniform 0.0;
     }
 
     outlet
