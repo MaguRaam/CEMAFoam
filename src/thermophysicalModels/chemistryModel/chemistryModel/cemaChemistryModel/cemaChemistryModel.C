@@ -71,9 +71,9 @@ void Foam::cemaChemistryModel<ThermoType>::cema
 ) const
 {
     // Compute eigen values
-    EigenMatrix<scalar> EM(J, false);
-    DiagonalMatrix<scalar> EValsRe(EM.EValsRe());
-    const DiagonalMatrix<scalar>& EValsIm(EM.EValsIm());
+    eigendecomposition eigen(J);
+    scalarField EValsRe(eigen.d());
+    const scalarField& EValsIm(eigen.e());
 
     // Get the size of the matrix
     const label m = EValsRe.size();
@@ -97,7 +97,7 @@ void Foam::cemaChemistryModel<ThermoType>::cema
     label iMax = findMax(EValsRe);
 
     // Get the eigenvector corresponding to the maximum real part of eigenvalue
-    Field<scalar> cem = EM.EVecs().col(m, 0, iMax);
+    Field<scalar> cem = eigen.V().col(m, 0, iMax);
 
     // Compute the maximum real part of eigenvalue
     lambdaExp_[celli] = EValsRe[iMax];

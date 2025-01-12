@@ -35,7 +35,7 @@ SourceFiles
 #define cemaChemistryModel_H
 
 
-#include "EigenMatrix.H"
+#include "eigendecomposition.H"
 #include "chemistryModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
