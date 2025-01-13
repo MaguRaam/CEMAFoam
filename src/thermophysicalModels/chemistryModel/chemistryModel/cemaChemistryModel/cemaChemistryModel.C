@@ -79,7 +79,7 @@ void Foam::cemaChemistryModel<ThermoType>::cema
     const label m = EValsRe.size();
 
     // Compute magnitude square of eigen values
-    const scalarList EValsMag(EValsRe*EValsRe + EValsIm*EValsIm);
+    const scalarField EValsMag(EValsRe*EValsRe + EValsIm*EValsIm);
 
     // Get the indices of magnitude of eigenvalues in increasing order
     labelList order;
